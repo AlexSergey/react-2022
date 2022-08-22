@@ -244,6 +244,15 @@ module.exports = {
       },
     },
     /*
+      <-------------SPEC RULES------------->
+    */
+    {
+      files: ['**/*.spec.ts', '**/*.e2e-spec.ts', '**/*.spec.tsx', '**/*.e2e-spec.tsx'],
+      rules: {
+        'jest-formatting/padding-around-all': 'error',
+      },
+    },
+    /*
       <-------------WEBPACK CONFIG------------->
      */
     {
