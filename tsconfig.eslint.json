@@ -3,6 +3,8 @@
   "include": [
     "webpack.config.ts",
     "src",
+    "./hermione/tests/*",
+    "./hermione/tests/**/*",
     ".eslintrc.js"
   ]
 }

@@ -8,11 +8,14 @@ import 'webpack-dev-server';
 import FriendlyErrorsPlugin from '@nuxt/friendly-errors-webpack-plugin';
 import Dotenv from 'dotenv-webpack';
 import EslintWebpackPlugin from 'eslint-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import StylelintPlugin from 'stylelint-webpack-plugin';
 import webpack from 'webpack';
+
+import { version } from './package.json';
 
 const mode = process.env.NODE_ENV;
 
@@ -50,6 +53,7 @@ const config: webpack.Configuration = {
           loader: 'ts-loader',
           options: {
             configFile: 'tsconfig.dev.json',
+            transpileOnly: true,
           },
         },
       },
@@ -85,7 +89,7 @@ const config: webpack.Configuration = {
         exclude: /\.module\.scss$/,
         test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { sourceMap: isDevelopment } },
           {
             loader: 'postcss-loader',
@@ -97,7 +101,7 @@ const config: webpack.Configuration = {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { sourceMap: isDevelopment } },
           {
             loader: 'postcss-loader',
@@ -108,7 +112,7 @@ const config: webpack.Configuration = {
       {
         test: /\.module\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           { loader: '@teamsupercell/typings-for-css-modules-loader' },
           { loader: 'css-loader', options: { modules: true, sourceMap: isDevelopment } },
           {
@@ -143,18 +147,20 @@ const config: webpack.Configuration = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(mode),
+    }),
     new Dotenv({
       allowEmptyValues: true,
       defaults: isDefaults,
       path: path.resolve(__dirname, '.env'),
       safe: isExample,
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(mode),
-    }),
     new HtmlWebpackPlugin({
+      inject: false,
       minify: !isDevelopment,
       template: path.resolve(__dirname, './index.ejs'),
+      version,
     }),
     new StylelintPlugin(),
     new EslintWebpackPlugin({
@@ -166,8 +172,9 @@ const config: webpack.Configuration = {
       paths: [/css\.d\.ts$/],
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/styles.css',
+      filename: 'css/assets.css',
     }),
+    new ForkTsCheckerWebpackPlugin(),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -177,6 +184,9 @@ const config: webpack.Configuration = {
         errorDetails: isDevelopment,
       }
     : 'errors-only',
+  watchOptions: {
+    ignored: /node_modules/,
+  },
 };
 
 export default config;

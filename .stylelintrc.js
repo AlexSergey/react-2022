@@ -1,7 +1,31 @@
 module.exports = {
-  extends: ['stylelint-config-standard-scss', 'stylelint-config-prettier-scss'],
+  extends: ['stylelint-config-standard-scss', 'stylelint-config-prettier-scss', 'stylelint-config-clean-order'],
   plugins: ['stylelint-scss'],
   rules: {
+    'at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'tailwind',
+          'apply',
+          'variants',
+          'responsive',
+          'screen',
+        ],
+      },
+    ],
+    'scss/at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'tailwind',
+          'apply',
+          'variants',
+          'responsive',
+          'screen',
+        ],
+      },
+    ],
     indentation: 2,
     'color-named': 'never',
     'color-hex-length': 'short',

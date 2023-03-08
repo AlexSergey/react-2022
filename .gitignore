@@ -97,3 +97,4 @@ test-reports
 .env
 
 # Custom rules
+!hermione/reports

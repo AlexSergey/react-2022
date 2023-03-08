@@ -22,7 +22,10 @@
 
     "types": [
       "node",
-      "webpack-env"
+      "webpack-env",
+      "hermione",
+      "hermione-storybook",
+      "jest"
     ],
 
     "strict": true,
@@ -43,6 +46,8 @@
   ],
   "include": [
     "./src/*",
-    "./src/**/*"
+    "./src/**/*",
+    "./hermione/tests/*",
+    "./hermione/tests/**/*"
   ]
 }
