@@ -2,9 +2,9 @@
   "extends": "./tsconfig.json",
   "include": [
     "webpack.config.ts",
+    "playwright.config.ts",
     "src",
-    "./hermione/tests/*",
-    "./hermione/tests/**/*",
+    "visual-tests",
     ".eslintrc.js"
   ]
 }

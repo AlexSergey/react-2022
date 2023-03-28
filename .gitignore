@@ -95,6 +95,5 @@ test-reports
 
 # dotenv file ought to ignore
 .env
-
-# Custom rules
-!hermione/reports
+test-results
+!visual-tests/dist

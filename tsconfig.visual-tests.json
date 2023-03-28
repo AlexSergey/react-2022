@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "outDir": "./visual-tests/dist/"
+  },
+  "include": [
+    "./visual-tests/src/"
+  ]
+}

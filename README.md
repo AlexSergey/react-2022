@@ -13,48 +13,27 @@ Includes:
 - Postcss + Tailwind
 - Storybook
 - SCSS Modules
+- Playwright
 
-## Visual Testing Hermione
+## Visual Testing Playwright
 
-Storybook integrated with Hermione for Visual Testing.
-
-### Install
-
-Download and install chrome driver:
+After installation project need to run the command to install playwright:
 
 ```shell
-https://chromedriver.chromium.org/downloads
+npx playwright install
 ```
 
-Install Selenium:
+At the first start, you need to generate reference screenshots using the command:
 
 ```shell
-npm i -g selenium-standalone
-selenium-standalone install
+npm run visual-tests:generate
 ```
 
-### Testing
+Reference screenshots will be placed in the "visual-tests/dist" folder in the project. This folder should be pushed to the git repo.
+The folder "test-results" should be in gitignore. This folder re-generated every run playwright and include diff screenshots with errors.
 
-For visual testing you need to run Storybook:
-
-```shell
-npm run storybook
-```
-
-Run selenium:
+The command for a run playwright to compare the current component with screenshot
 
 ```shell
-npm run selenium:start
-```
-
-For first pass you need to generate reference screenshots:
-
-```shell
-npm run hermione:generate
-```
-
-After changes, you can run GUI to compare changes for reference screenshots:
-
-```shell
-npm run hermione:gui
+npm run visual-tests
 ```

@@ -59,7 +59,20 @@ module.exports = {
       tsconfigRootDir: __dirname
     },
     plugins: ['@typescript-eslint', 'import', 'unicorn', 'sort-keys-fix', 'react', 'check-file', 'jest-formatting'],
-    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:@typescript-eslint/eslint-recommended', 'plugin:react/recommended', 'plugin:react/jsx-runtime', 'airbnb-base', 'airbnb-typescript/base', 'plugin:import/recommended', 'plugin:import/typescript', 'prettier', 'plugin:prettier/recommended'],
+    extends: [
+      'eslint:recommended',
+      'plugin:@typescript-eslint/recommended',
+      'plugin:@typescript-eslint/eslint-recommended',
+      'plugin:react/recommended',
+      'plugin:react/jsx-runtime',
+      'airbnb-base',
+      'airbnb-typescript/base',
+      'plugin:import/recommended',
+      'plugin:import/typescript',
+      'prettier',
+      'plugin:prettier/recommended',
+      'plugin:storybook/recommended'
+    ],
     rules: {
       'no-unused-vars': 'off',
       'no-plusplus': 'off',
@@ -106,9 +119,7 @@ module.exports = {
       }],
       '@typescript-eslint/ban-ts-comment': isDevelopment ? 'off' : 'error',
       'sort-keys-fix/sort-keys-fix': 'warn',
-      'import/no-extraneous-dependencies': ['error', {
-        devDependencies: ['**/*.test.ts', '**/*.spec.ts', '**/*.hermione.ts', '**/*.test.tsx', '**/*.spec.tsx', '**/*.stories.tsx', 'jest.*.ts']
-      }],
+      'import/no-extraneous-dependencies': 'error',
       'import/order': ['error', {
         alphabetize: {
           order: 'asc'
@@ -203,7 +214,8 @@ module.exports = {
     files: ['**/*.stories.tsx'],
     rules: {
       'import/no-default-export': 'off',
-      'import/prefer-default-export': 'off'
+      'import/prefer-default-export': 'off',
+      'import/no-extraneous-dependencies': 'off',
     }
   },
   /*
@@ -212,7 +224,8 @@ module.exports = {
   {
     files: ['**/*.spec.ts', '**/*.e2e-spec.ts', '**/*.spec.tsx', '**/*.e2e-spec.tsx'],
     rules: {
-      'jest-formatting/padding-around-all': 'error'
+      'jest-formatting/padding-around-all': 'error',
+      'import/no-extraneous-dependencies': 'off',
     }
   },
   /*
@@ -224,6 +237,16 @@ module.exports = {
       'import/no-default-export': 'off',
       'import/no-extraneous-dependencies': 'off'
     }
-  }],
-  extends: ['plugin:storybook/recommended']
+  },
+    /*
+      <-------------PLAYWRIGHT CONFIG------------->
+     */
+    {
+      files: ['playwright.config.ts'],
+      rules: {
+        'import/no-default-export': 'off',
+        'import/no-extraneous-dependencies': 'off'
+      }
+    },
+  ],
 };
